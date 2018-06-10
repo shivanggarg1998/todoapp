@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  </head>
+  <body class="bg-primary">
+    <div class="container">
+      <h1>TODO LIST</h1>
+<br>
+<div class="alert alert-success" role="alert" style="display: none">
+  <h4 class="alert-heading">Well done!</h4>
+</div>
+
+<br>
+
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Add note here" id="listitem">
+  <div class="input-group-append">
+    <button class="btn btn-primary" type="button" onclick="add()">Add note</button>
+  </div>
+</div>
+<br>
+<ul id="list" class="list-group">
+</ul>
+<button class="btn btn-danger" type="button" onclick="removeall()">Delete all checked</button>
+    <script>
+var list = [];
+
+function removeall()
+{
+  for(var i=0 ; i<list.length;i++)
+  {
+    if(list[i].ischeck)
+    {
+  remove(i+1);
+  i=0;
+  console.log("repeat");
+}
+  console.log(list);
+}
+};
+
+function remove(event)
+{
+  var size = list.length;
+  document.getElementById(event.toString()).remove();
+  list.splice(event-1,1);
+  console.log(event);
+  console.log(list);
+  for(var i=event ;i <=size;i++)
+  {
+    var index = (i+1).toString();
+    if(list[i-1]==null)
+    {
+      break;
+    }
+    var value = list[i-1].value;
+    if(list[i-1].ischeck)
+    {
+    document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" checked> &nbsp;" + value + "<button onclick='remove("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
+console.log("hmm");
+  }
+  else {
+    document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" > &nbsp;" + value + "<button onclick='remove("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
+console.log("what.");
+  }
+    document.getElementById(index).id = i.toString();
+    console.log("hello");
+  }
+
+};
+
+
+function edit(event)
+{
+   document.getElementById(event.toString()).innerHTML = "<input type= \"text \" class=\"form-control \" placeholder=\"Add note here\" id=\""+event+"t"+"\" value = \" "+list[event-1].value.toString() + "\"><div class=\"input-group-append\"><button class=\"btn btn-danger\" type=\"button\" onclick=\"edits("+event+")\">Save changes</button>";
+   document.getElementById(event.toString()).style.display ="flex";
+
+}
+
+function edits(event)
+{
+  var value = document.getElementById(event.toString()+"t").value;
+  if(value == '')
+  {
+    remove(event);
+    return ;
+  }
+  document.getElementById(event.toString()).style.display ="inline";
+  document.getElementById(event.toString()).innerHTML = "<input type=\"checkbox\" id=\""+event+"b"+"\" onclick=\"change("+event+")\" > &nbsp;" + value + "<button onclick='remove("+ event +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + event + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
+  list[event-1].value=value;
+  document.getElementById(event.toString()+"b").checked = list[event-1].ischeck;
+}
+
+function change(event)
+{
+list[event-1].ischeck = document.getElementById(event.toString()+"b").checked ;
+var index = (event).toString();
+var i = event-1;
+var value = list[event-1].value;
+if(list[i].ischeck)
+{
+document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" checked> &nbsp;" + value + "<button onclick='remove("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
+}
+else {
+document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" > &nbsp;" + value + "<button onclick='remove("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
+}
+console.log(list[event-1].ischeck);
+}
+
+function add()
+{
+
+  if(document.getElementById('listitem').value == '')
+  {
+    return ;
+  }
+  var temp = { value : document.getElementById('listitem').value , ischeck : false };
+  list.push(temp);
+  var index = list.length;
+    document.getElementById('list').innerHTML += "<li class=\"list-group-item\"  id = \'" + index + "\'><input type=\"checkbox\" id=\""+index+"b"+"\" onclick=\"change("+index+")\" > &nbsp;" + temp.value + "<button onclick='remove("+ index +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button><button onclick='edit(" + index + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button></li>";
+    value='';
+document.getElementById('listitem').value=value;
+console.log(list);
+
+};
+
+
+
+    </script>
+  </body>
+</html>
