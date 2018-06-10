@@ -28,17 +28,17 @@
 </ul>
 <br>
 <br>
-<button class="btn btn-danger" type="button" onclick="removeall()">Delete all checked</button>
+<button class="btn btn-danger" type="button" onclick="removesall()">Delete all checked</button>
     <script>
 var list = [];
 
-function removeall()
+function removesall()
 {
   for(var i=0 ; i<list.length;i++)
   {
     if(list[i].ischeck)
     {
-  remove(i+1);
+  removes(i+1);
   i=-1;
   console.log("repeat" + i);
   continue;
@@ -49,7 +49,7 @@ function removeall()
 }
 };
 
-function remove(event)
+function removes(event)
 {
   var size = list.length;
   document.getElementById(event.toString()).remove();
@@ -66,11 +66,11 @@ function remove(event)
     var value = list[i-1].value;
     if(list[i-1].ischeck)
     {
-    document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" checked> &nbsp;" + value + "<button onclick='remove("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
+    document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" checked> &nbsp;" + value + "<button onclick='removes("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
 console.log("hmm");
   }
   else {
-    document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" > &nbsp;" + value + "<button onclick='remove("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
+    document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" > &nbsp;" + value + "<button onclick='removes("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
 console.log("what.");
   }
     document.getElementById(index).id = i.toString();
@@ -92,11 +92,11 @@ function edits(event)
   var value = document.getElementById(event.toString()+"t").value;
   if(value == '')
   {
-    remove(event);
+    removes(event);
     return ;
   }
   document.getElementById(event.toString()).style.display ="inline";
-  document.getElementById(event.toString()).innerHTML = "<input type=\"checkbox\" id=\""+event+"b"+"\" onclick=\"change("+event+")\" > &nbsp;" + value + "<button onclick='remove("+ event +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + event + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
+  document.getElementById(event.toString()).innerHTML = "<input type=\"checkbox\" id=\""+event+"b"+"\" onclick=\"change("+event+")\" > &nbsp;" + value + "<button onclick='removes("+ event +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + event + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
   list[event-1].value=value;
   document.getElementById(event.toString()+"b").checked = list[event-1].ischeck;
 }
@@ -109,10 +109,10 @@ var i = event-1;
 var value = list[event-1].value;
 if(list[i].ischeck)
 {
-document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" checked> &nbsp;" + value + "<button onclick='remove("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
+document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" checked> &nbsp;" + value + "<button onclick='removes("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
 }
 else {
-document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" > &nbsp;" + value + "<button onclick='remove("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
+document.getElementById(index).innerHTML = "<input type=\"checkbox\" id=\""+i+"b"+"\" onclick=\"change("+i+")\" > &nbsp;" + value + "<button onclick='removes("+ i +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button> <button onclick='edit(" + i + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button>"   ;
 }
 console.log(list[event-1].ischeck);
 }
@@ -127,7 +127,7 @@ function add()
   var temp = { value : document.getElementById('listitem').value , ischeck : false };
   list.push(temp);
   var index = list.length;
-    document.getElementById('list').innerHTML += "<li class=\"list-group-item\"  id = \'" + index + "\'><input type=\"checkbox\" id=\""+index+"b"+"\" onclick=\"change("+index+")\" > &nbsp;" + temp.value + "<button onclick='remove("+ index +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button><button onclick='edit(" + index + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button></li>";
+    document.getElementById('list').innerHTML += "<li class=\"list-group-item\"  id = \'" + index + "\'><input type=\"checkbox\" id=\""+index+"b"+"\" onclick=\"change("+index+")\" > &nbsp;" + temp.value + "<button onclick='removes("+ index +")' class=\"btn btn-danger float-right\"><i class=\"fas fa-trash\"></i></button><button onclick='edit(" + index + ")' class=\"btn btn-danger float-right\"><i class=\"far fa-edit\"></i></button></li>";
     value='';
 document.getElementById('listitem').value=value;
 console.log(list);
